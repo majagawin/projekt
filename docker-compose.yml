@@ -18,6 +18,25 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    restart: unless-stopped
+    command:
+      - postgres
+      - -c
+      - listen_addresses=*
+
+  app:
+    build: .
+    container_name: projekt
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - .:/projekt
+    environment:
+      DATABASE_URL: postgresql://maja:maja@my_postgres:5432/baza
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
 
 volumes:
   postgres_data:

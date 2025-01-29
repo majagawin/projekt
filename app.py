@@ -4,7 +4,7 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, login_
 import uuid
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://maja:maja@localhost:5432/baza'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://maja:maja@my_postgres:5432/baza'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'gigatajny_kluuucz'
 
@@ -140,4 +140,4 @@ def add_animal():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host="0.0.0.0", port=5000, debug=True)
